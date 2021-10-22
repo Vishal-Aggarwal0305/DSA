@@ -1,0 +1,83 @@
+#include<iostream>
+using namespace std;
+
+void display(int arr[], int len){
+    if(len == 0){
+        cout << "Array Is Empty" << endl;
+    }
+    
+    else{
+        for (int i = 0; i < len; i++){
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+}
+
+void merge(int arr[], int low, int high){
+    
+    int mid = (low + high) / 2;
+    int midCopy = mid + 1;
+    int lowCopy = low;
+    int *copy = new int[high - low + 1];
+    int index = 0;
+    
+    while(lowCopy <= mid && midCopy <= high){
+        if(arr[lowCopy] <= arr[midCopy]){
+            copy[index++] = arr[lowCopy++];
+        }    
+        
+        else{
+            copy[index++] = arr[midCopy++];
+        }
+    }
+    
+    while(lowCopy <= mid){
+        copy[index++] = arr[lowCopy++];
+    }
+    
+    while(midCopy <= high){
+        copy[index++] = arr[midCopy++];
+    }
+    
+    for (int i = low; i <= high; i++){
+        arr[i] = copy[i - low];
+    }
+}
+
+void mergeSort(int arr[], int low, int high){
+    if(low < high){
+        int mid = (low + high) / 2;
+        
+        mergeSort(arr, low, mid);
+        mergeSort(arr, mid+1, high);
+        
+        merge(arr, low, high);
+    }
+}
+
+int main(){
+    
+    int len;
+    cout << "Enter Length Of Array : ";
+    cin >> len;
+    
+    int *arr = new int[len];
+    
+    for (int i = 0; i < len; i++){
+        cout << "Array [ " << i << " ] : ";
+        cin >> arr[i];
+    }
+    
+    cout << "\nArray Before Sort: ";
+    display(arr, len);
+    cout << endl;
+
+    mergeSort(arr, 0, len-1);
+
+    cout << "\nArray After Sort: ";
+    display(arr, len);
+    cout << endl;
+    
+    return 0;
+}
