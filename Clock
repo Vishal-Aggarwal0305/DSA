@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<unistd.h>
+
+int hour();
+int minute();
+int sec();
+
+char str[10];
+int i=0,choice,j=0;
+
+int main()
+{
+
+    printf("Enter starting time : ");
+    gets(str);
+
+    printf("1.AM \t 2.PM\n\nEnter your choice : ");
+    scanf("%d",&choice);
+
+    while(1)
+    {
+        hour();
+        printf("\n\n\n\n\t\t\t\t\t\t\t\t%c%c : ",str[0],str[1]);
+        minute();
+        printf("%c%c : ",str[3],str[4]);
+        sec();
+        printf("%c%c",str[6],str[7]);
+        sleep(1);
+        system("cls");
+    }
+    
+}
+
+int sec()
+{
+    if(str[7]<'9')
+    {
+        str[7]+=1;
+    }
+    else
+    {
+        str[6]+=1;
+        str[7]='0';
+    }
+
+}
+
+int minute()
+{
+    if(str[6]=='6')
+    {
+        str[6]='0';
+        str[7]='0';
+        str[4]+=1;
+    }
+    
+    if(str[4]>'9')
+    {
+        str[4]='0';
+        str[3]+=1;
+    }
+
+}
+
+int hour()
+{
+    if(str[1]>'9')
+    {
+        str[1]='0';
+        str[0]+=1;
+    }
+
+    if(str[0]=='1' && str[1]=='2')
+    {
+        str[0]='0';
+        str[1]='0';
+        str[3]='0';
+        str[4]='0';
+        str[6]='0';
+        str[7]='0';
+        if(choice==1)
+        {
+            choice=2;
+        }
+        else
+        {
+            choice=1;
+        }
+        
+    }
+
+
+}
+
+
