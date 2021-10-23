@@ -1,0 +1,131 @@
+#include <stdio.h>
+
+#include <limits.h>
+
+ 
+
+int max(int x, int y) { return (x > y) ? x : y; }
+
+int min(int x, int y) { return (x < y) ? x : y; }
+
+ 
+
+// Determine the index of an element in an array before which all elements
+
+// are smaller and after which all are greater
+
+int findIndex(int arr[], int n)
+
+{
+
+    // base case
+
+    if (n <= 2) {
+
+        return -1;
+
+    }
+
+ 
+
+    // `left[i]` stores the maximum element in subarray `arr[0…i-1]`
+
+    int left[n];
+
+ 
+
+    // initialize `left[0]` to the minimum value
+
+    left[0] = INT_MIN;
+
+ 
+
+    // traverse the array from left to right and fill `left[]`
+
+    for (int i = 1; i < n; i++) {
+
+        left[i] = max(left[i - 1], arr[i - 1]);
+
+    }
+
+ 
+
+    // `right[i]` stores the minimum element in subarray `arr[i+1, n-1]`
+
+    int right[n];
+
+ 
+
+    // initialize `right[0]` to the maximum value
+
+    right[n-1] = INT_MAX;
+
+ 
+
+    // traverse the array from right to left and fill `right[]`
+
+    for (int i = n - 2; i >= 0; i--) {
+
+        right[i] = min(right[i + 1], arr[i + 1]);
+
+    }
+
+ 
+
+    // traverse the array and return the desired index
+
+    for (int i = 1; i < n-1; i++)
+
+    {
+
+        // index found
+
+        if (left[i] < arr[i] && arr[i] < right[i]) {
+
+            return i;
+
+        }
+
+    }
+
+ 
+
+    // return negative index if the input is invalid
+
+    return -1;
+
+}
+
+ 
+
+int main(void)
+
+{
+
+    int arr[] = { 4, 2, 3, 5, 1, 6, 9, 7 };
+
+    int n = sizeof arr / sizeof arr[0];
+
+ 
+
+    int index = findIndex(arr, n);
+
+ 
+
+    if (index >= 0 && index < n) {
+
+        printf("The required index is %d", index);
+
+    }
+
+    else {
+
+        printf("Invalid Input");
+
+    }
+
+ 
+
+    return 0;
+
+}
