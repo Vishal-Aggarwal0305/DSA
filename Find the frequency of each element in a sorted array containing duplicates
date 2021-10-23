@@ -1,0 +1,71 @@
+#include <iostream>
+
+#include <unordered_map>
+
+using namespace std;
+
+ 
+
+// Function to find the frequency of each element in a sorted array
+
+void findFrequency(int nums[], int n, unordered_map<int, int> &freq)
+
+{
+
+    // if every element in subarray nums[0…n-1] is equal,
+
+    // then increment the element's count by `n`
+
+    if (nums[0] == nums[n - 1])
+
+    {
+
+        freq[nums[0]] += n;
+
+        return;
+
+    }
+
+ 
+
+    // divide the array into left and right subarray and recur
+
+    findFrequency(nums, n/2, freq);
+
+    findFrequency(nums + n/2, n - n/2, freq);
+
+}
+
+ 
+
+int main()
+
+{
+
+    int nums[] = { 2, 2, 2, 4, 4, 4, 5, 5, 6, 8, 8, 9 };
+
+    int n = sizeof(nums) / sizeof(int);
+
+ 
+
+    // find the frequency of each array element and store it in a map
+
+    unordered_map<int, int> freq;
+
+    findFrequency(nums, n, freq);
+
+ 
+
+    // print the frequency
+
+    for (auto pair: freq) {
+
+        cout << pair.first << " occurs " << pair.second << " times\n";
+
+    }
+
+ 
+
+    return 0;
+
+}
