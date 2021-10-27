@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+ 
+// Function to replace each array element by its rank in the array
+void transform(vector<int> &input)
+{
+    // create an empty ordered map
+    map<int, int> map;
+ 
+    // store (element, index) pair in a map
+    for (int i = 0; i < input.size(); i++) {
+        map[input[i]] = i;
+    }
+ 
+    // keys are stored in sorted order in an ordered map
+ 
+    // rank starts from 1
+    int rank = 1;
+ 
+    // iterate through the map and replace each element with its rank
+    for (auto i: map) {
+        input[i.second] = rank++;        // `i.second` stores the index of element `i`
+    }
+}
+ 
+int main()
+{
+    vector<int> input = { 10, 8, 15, 12, 6, 20, 1 };
+ 
+    // transform the array
+    transform(input);
+ 
+    // print the transformed array
+    for (int i: input) {
+        cout << i << " ";
+    }
+ 
+    return 0;
+}
